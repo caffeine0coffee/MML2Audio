@@ -1,0 +1,61 @@
+/*
+MML規定
+
+基礎となる機能 -------------------------
+
+基本形
+   <length><scale><semitone>
+	   length: 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64
+		   省略可能(デフォルト音長で解釈)
+	   scale: \[A-Ga-gR]\ Rは休符
+	   semitone: \[#+-]\
+   例: 4C 8E 8G 4B-
+
+オクターブ デフォルトは4
+   O<number>: それ以降のオクターブを固定
+   < , >    : 1オクターブ上げる, 下げる
+
+チャンネル     : 「:<channel name>」で指定
+テンポ         : T<bpm>で指定
+デフォルト音長 : L<number>で指定
+
+音色
+	@<string> waveGeneratorIdが入る
+		sin      : sin波
+		square   : 矩形波
+		sawtooth : のこぎり波
+		noise    : ノイズ
+ 
+音量
+	V<number> : 音量指定 0~127
+	(<number> : 指定音量上げる
+	)<number> : 指定音量下げる
+
+
+区切り文字: 「|」
+	可視性の為だけに使う Readerでは無視する
+*/
+
+T100
+
+:lead
+O5 L8 V90 @(sawtooth)
+C>BAG <DC>B<D | 4C4E 2C
+
+:bass
+O3 V110 @(sin)
+2F 2G | < 2C 2C
+
+:arpeggio
+O6 L32 V70 @(square)
+FA<CEGEC>A FA<CEGEC>A
+GB<DFAFD>B GB<DFAFD>B |
+<BGEC>G<EC>G <GEC>GE<EC>G
+<C
+
+:drum
+V80 @(noise)
+L32 CCCC L16 CR RR CR
+L32 CCCC L16 CR RR CR |
+L16
+C)20C)20C(10C (10C(10C(10C(10C (10C

@@ -1,0 +1,108 @@
+@startuml MML2Audio
+title MML2Audio
+
+class Main {
+    - {static} inputFile: String
+    - {static} outputFile: String
+    - {static} quietFlag
+    - {static} verboseFlag
+
+    + {static} main()
+}
+
+class Music {
+    - audioFormat: AudioFormat
+    - bpm
+    - channelList: ArrayList<Note>
+    + MIN_TONE_LENGTH
+    + SAMPLE_RATE
+
+    + addChannel()
+    + generateAudioBuffer()
+}
+
+class MmlReader {
+    + {static} mmlCompiler()
+    + {static} convertMmlToChannel()
+}
+
+class WaveGenerator {
+    - {static} waveGeneratorMap
+
+    + {static} sin()
+    + {static} square()
+    + {static} sawtooth()
+    + {static} noise()
+    + {static} getWaveGenerator(): BiFunction
+}
+
+package Channel {
+    class Channel {
+        - noteList: ArrayList<Note>
+
+        + addNote()
+    }
+
+    class ChannelBuilder {
+        - channel
+        - currentVolume
+        - currentOctave
+        - currentDefaultToneLength
+        - currentWaveGeneratorId
+
+        + setChannel()
+        + addNote()
+    }
+}
+
+package Note {
+    class Note {
+        - scaleIndex
+        - noteName
+        - freq
+        - toneLength
+        - volume
+        - octave
+        - waveGeneratorId
+
+        + equals()
+        + toString()
+    }
+
+    class NoteNameConverter {
+        - {static} scaleMap
+
+        + {static} noteNameToScaleIndex()
+        + {static} scaleIndexToNoteName()
+    }
+}
+
+package Util {
+    class Log {
+        - {static} logOutputFlag
+        - {static} infoOutputFlag
+
+        + {static} setLogOutputFlag()
+        + {static} setInfoOutputFlag()
+        + {static} log()
+        + {static} info()
+    }
+}
+
+Main - MmlReader: use >
+Main - Music: own >
+Main -- Log: init >
+
+ChannelBuilder -- Channel: have >
+Channel "0..n" --o "1" Music
+Note "0..n" --o "1" Channel
+
+ChannelBuilder --* MmlReader
+
+Note -- NoteNameConverter: use >
+
+Music - WaveGenerator: use >
+
+MmlReader --* Music
+
+@enduml
