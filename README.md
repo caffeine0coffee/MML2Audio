@@ -57,11 +57,11 @@ java -jar MML2Audio.jar <inputFile> [-o <outputFile>] [-q] [-v]
     - square : 矩形波
     - sawtooth : のこぎり波
     - noise : ノイズ (ノートの音階に影響を受けない)
-- V<number>
+- V\<number>
   - それ以降の音量を指定
   - 0~255の整数
-- (<number> 指定した分だけ音量を上げる
-- )<number> 指定した分だけ音量を下げる
+- (\<number> 指定した分だけ音量を上げる
+- )\<number> 指定した分だけ音量を下げる
 - | 可視性の為に使う
   - 生成される曲には影響を及ぼさない
 - /* */ コメント文
