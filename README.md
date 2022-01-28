@@ -4,7 +4,7 @@ mmlファイルをwavファイルに変換するプログラムです。
 
 ## Build
 
-Java Development Kit(JDK)が必要です。
+Java Development Kit (JDK)が必要です。
 openjdk 16.0.1 及び java 17.0.2 で動作確認済みです。
 
 Linux / Mac
